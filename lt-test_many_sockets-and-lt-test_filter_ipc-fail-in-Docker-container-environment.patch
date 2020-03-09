@@ -1,0 +1,25 @@
+From 32b2d3034b04a54118bc95c3f83ea5af78f9de41 Mon Sep 17 00:00:00 2001
+From: Nikolay Amiantov <ab@fmap.me>
+Date: Thu, 20 Nov 2014 05:08:45 +0300
+Subject: [PATCH] Fix test_filter_ipc for cleared supplementary groups
+
+This should fix part of [https://github.com/zeromq/libzmq/issues/1129].
+---
+ tests/test_filter_ipc.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tests/test_filter_ipc.cpp b/tests/test_filter_ipc.cpp
+index 00518f710..83035949b 100644
+--- a/tests/test_filter_ipc.cpp
++++ b/tests/test_filter_ipc.cpp
+@@ -122,8 +122,8 @@ int main (void)
+     // Get the group and supplimental groups of the process owner
+     gid_t groups[100];
+     int ngroups = getgroups(100, groups);
+-    assert (ngroups != -1 && ngroups != 0);
+-    gid_t group = getgid(), supgroup = groups[0], notgroup = groups[ngroups - 1] + 1;
++    assert (ngroups != -1);
++    gid_t group = getgid(), supgroup = group, notgroup = group + 1;
+     for (int i = 0; i < ngroups; i++) {
+         if (supgroup == group && group != groups[i])
+             supgroup = groups[i];
