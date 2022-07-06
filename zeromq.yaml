@@ -1,0 +1,4 @@
+version_control: github
+src_repo: https://github.com/zeromq/libzmq.git
+tag_prefix: "^v"
+seperator: "."
