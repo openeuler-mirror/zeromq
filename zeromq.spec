@@ -1,11 +1,13 @@
 Name:           zeromq
 Version:        4.3.4
-Release:        1
+Release:        2
 Summary:        Software library for fast, message-based applications
 
 License:        LGPLv3+
 URL:            https://zeromq.org
 Source0:        https://github.com/%{name}/libzmq/archive/v%{version}/libzmq-%{version}.tar.gz
+
+Patch0000:	fix-test_inproc_connect-occasionally-fails-on-slow-archs.patch
 
 BuildRequires:  make
 BuildRequires:  autoconf
@@ -93,7 +95,10 @@ make check V=1 || ( cat test-suite.log && exit 1 )
 %{_mandir}/man7/zmq.*
 
 %changelog
-* Fri Jun 4 2021 wutao <wutao61@huawei.com> - 4.3.4-3
+* Fri Aug 19 2022 xu_ping <xuping33@h-partners.com> - 4.3.4-2
+- fix test_inproc_connext failed
+
+* Fri Jun 4 2021 wutao <wutao61@huawei.com> - 4.3.4-1
 - upgrade to 4.3.4 to fix CVE-2021-20236
 
 * Fri Mar 6 2020 shijian <shijian16@huawei.com> - 4.1.7-2
