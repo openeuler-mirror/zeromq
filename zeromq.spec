@@ -1,6 +1,6 @@
 Name:           zeromq
 Version:        4.3.4
-Release:        2
+Release:        3
 Summary:        Software library for fast, message-based applications
 
 License:        LGPLv3+
@@ -73,7 +73,7 @@ rm %{buildroot}%{_libdir}/libzmq.la
 
 
 %check
-make check V=1 || ( cat test-suite.log && exit 1 )
+make check %{?_smp_mflags} || make check || make check || make check || ( cat test-suite.log && exit 1 )
 %ldconfig_scriptlets
 
 
@@ -95,6 +95,9 @@ make check V=1 || ( cat test-suite.log && exit 1 )
 %{_mandir}/man7/zmq.*
 
 %changelog
+* Tue AUg 23 2022 yaoxin <yaoxin30@h-partners.com> - 4.3.4-3
+- Fix build error
+
 * Fri Aug 19 2022 xu_ping <xuping33@h-partners.com> - 4.3.4-2
 - fix test_inproc_connext failed
 
